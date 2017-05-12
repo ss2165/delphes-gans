@@ -19,9 +19,6 @@ from docopt import docopt
 
 
 def main(qfile, wfile, outfile):
-    # qfile = os.path.abspath('data/comb_qcd.hdf')
-    # wfile = os.path.abspath('data/comb_wprime.hdf')
-    # outfile = os.path.abspath('data/prepared.hdf')
     qfile = os.path.abspath(qfile)
     wfile = os.path.abspath(wfile)
     outfile = os.path.abspath(outfile)

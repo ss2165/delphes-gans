@@ -17,7 +17,6 @@ import time
 from os import getpid, path, remove
 from docopt import docopt
 import subprocess
-import numpy as np
 
 arguments = docopt(__doc__, help=True)
 print(arguments)

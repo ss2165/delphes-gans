@@ -51,11 +51,12 @@ Requirements, tested on:
 * `numpy v1.12.1`
 * `scikit-image v0.12.3`
 * `h5py v2.7.0`
+* `tqdm`
 
 ## Training
 See helper files in `/proc` for converting image hdf files in to a format suitable for training.
 Contents of `/models` contains training code, from [adversarial-jets](https://github.com/hep-lbdl/adversarial-jets/), 
-see that repository for usage.
+see that repository for usage, or just run `python models/train.py -h`.
 
 Addditional requirements, tested on:
 * `keras v1.2`

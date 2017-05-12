@@ -3,6 +3,7 @@ readjet.py Contains classes ans helper functions for generating jet-images from 
 Ensure your Delphes installation directory is in the ROOT dynamic path (set in .rootrc)
 """
 import ROOT
+ROOT.gSystem.Load("libDelphes")  # should be in Delphes directory
 import ROOT.Tower
 import ROOT.Jet
 from ROOT import TLorentzVector
@@ -14,7 +15,6 @@ import os
 import numpy as np
 import skimage.transform as sk
 
-ROOT.gSystem.Load("libDelphes")  # should be in Delphes directory
 
 
 class Cell:
