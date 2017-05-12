@@ -1,0 +1,41 @@
+Main:numberOfEvents = 1000         ! number of events to generate
+Main:timesAllowErrors = 3          ! how many aborts before run stops
+Init:showProcesses = off
+Init:showMultipartonInteractions = off
+Init:showChangedSettings = off
+Init:showChangedParticleData = off
+Random:setSeed = on
+Random:seed =
+Next:numberShowInfo = 0
+Next:numberShowEvent = 0
+Next:numberShowLHA = 0
+Next:numberShowProcess = 0
+Next:numberCount = 0
+!1MASS
+NewGaugeBoson:ffbar2gmZZprime= on
+Zprime:gmZmode=3
+32:onMode = off
+32:onIfAny = 6
+24:onMode = off
+24:onIfAny = 1 2 3 4
+!2MASS
+NewGaugeBoson:ffbar2Wprime = on
+Wprime:coup2WZ=1
+34:onMode = off
+34:onIfAny = 23 24
+24:onMode = off
+24:onIfAny = 1 2 3 4
+23:onMode = off
+23:onIfAny = 12
+!3MASS
+NewGaugeBoson:ffbar2Wprime = on
+Wprime:coup2WZ=1
+34:onMode = off
+34:onIfAny = 23 24
+24:onMode = off
+24:onIfAny = 11 12
+23:onMode = off
+23:onIfAny = 1 2 3 4 5
+HardQCD:all = on
+ptHatMin.str()
+ptHatMax.str()
