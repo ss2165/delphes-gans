@@ -14,7 +14,7 @@ Options:
     --pt-hat-max=PTHMAX       pthatmax GeV [default: 500]
 """
 import time
-from os import getpid, path, remove
+from os import getpid, path, remove, pardir
 from docopt import docopt
 import subprocess
 
@@ -63,7 +63,9 @@ pythia_card = path.abspath(path.join(home, '.tmppythcard.cmnd'))  # temporary py
 with open(pythia_card, "w") as f:
     f.writelines(lines)
 
-delphes_card = path.abspath('../configs/delphes_card.tcl')
+
+updir = path.abspath(path.join(file_dir, pardir))
+delphes_card = path.abspath(path.join(updir, 'configs', 'delphes_card.tcl'))
 shell_command = ['DelphesPythia8', delphes_card, pythia_card, fname]
 t0 = time.time()
 subprocess.call(shell_command)
