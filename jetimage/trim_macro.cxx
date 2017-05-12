@@ -1,3 +1,4 @@
+//reads .root file and prints comma-separated list of subjets for leading pT jet in each event
 void trim_macro(char* fil){
     gSystem->Load("~/MG5_aMC_v2_2_3/Delphes/libDelphes");
     TChain chain("Delphes");

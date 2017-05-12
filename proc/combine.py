@@ -1,3 +1,4 @@
+"""combine.py helper file to combine small hdf image files in to one big one."""
 import h5py
 import numpy as np
 import os

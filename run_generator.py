@@ -1,4 +1,5 @@
-"""Usage:
+"""run_generator.py generates samples from a LAGAN generator
+Usage:
     run_generator.py <N> <weights> <output> [--latent-space=<Z>]
     run_generator.py -h | --help
 
@@ -18,36 +19,41 @@ import os
 import time
 
 
-def main(n_jets, gen_weights, outfile, latent_space):
+def main(n_jets, outfile, latent_space, gen_weights=None):
+    """
+    :param n_jets: number of jet imags to generate
+    :param gen_weights: weights to use
+    :param outfile: hdf file to save to
+    :param latent_space: latent space size
+    :return: runtime
+    """
     t0 = time.time()
-    # gen_weights = 'models/weights_1_6k/params_generator_epoch_049.hdf5'
 
     from models.networks.lagan import generator as build_generator
     g = build_generator(latent_space, return_intermediate=False)
-    g.load_weights(os.path.abspath(gen_weights))
+    if gen_weights is not None:
+        g.load_weights(os.path.abspath(gen_weights))
 
     noise = np.random.normal(0, 1, (n_jets, latent_space))
     sampled_labels = np.random.randint(0, 2, n_jets)
     generated_images = g.predict(
         [noise, sampled_labels.reshape(-1, 1)], verbose=False, batch_size=64)
-
+    # Multiply to image scale and remove extraneous axis
     generated_images *= 100
     generated_images = np.squeeze(generated_images)
 
     # Save generated images
-    # outfile = os.path.abspath('data/generated_01_6k.hdf')
     with h5py.File(os.path.abspath(outfile), 'w') as f:
         dset = f.create_dataset('image', data=generated_images)
         sigs = f.create_dataset('signal', data=sampled_labels)
 
-    # print("Runtime for {}".format(n_jets))
     return time.time() - t0  # return runtime
 
 
-def performance(arguments, logfile='g_speed.txt'):
+def performance(args, logfile='g_speed.txt'):
     """
     Helper function for running performance tests on generator
-    :param arguments: command line arguments dictionary
+    :param args: command line arguments dictionary
     :param logfile: file to write times to
     :return: Returns nothing
     """
@@ -55,10 +61,10 @@ def performance(arguments, logfile='g_speed.txt'):
     for N in np.logspace(1, 5, 9):
         # N = int(10**e)
         print(N)
-        t = main(N, arguments['<weights>'], arguments['<output>'],
-                 int(arguments['--latent-space']))
+        t = main(N, args['<weights>'], args['<output>'],
+                 int(args['--latent-space']))
         with open(logfile, 'a') as f:
-            f.write('{}\t{}\n'.format(N, t))
+            f.write('{}\t{}\n'.format(N, t))  # record number of jets and runtime
 
 
 if __name__ == '__main__':
